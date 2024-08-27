@@ -17,7 +17,8 @@ const slides = [
 	}
 ]
 
-let numero = 0
+var numero = 0
+lookBanner(slides[numero])
 
 //création du bouton gauche du slide
 var previousButton=document.createElement("div")
@@ -32,9 +33,10 @@ var banner=document.getElementById("banner")
 banner.append(previousButton)
 //EventListener du button gauche
 previousButton.addEventListener('click', function(){
-	changeSlide (-1)
+	changeSlide ("previous")
+	lookBanner(slides[numero])
 })
-
+console.log
 
 //création du bouton droit du slide
 var nextButton=document.createElement("div")
@@ -49,9 +51,10 @@ var banner=document.getElementById("banner")
 banner.append(nextButton)
 //EventListener du button droite
 nextButton.addEventListener('click', function(){
-	changeSlide (+1)
+	changeSlide ("next")
+	lookBanner(slides[numero])
 })
-
+console.log
 //création des points bulles
 var dots=document.querySelector(".dots")
 for (var slide of slides){
@@ -62,14 +65,26 @@ for (var slide of slides){
 
 //fonction de changement image
 function changeSlide (direction){
-	/*numero = numero + direction*/
-	/*document.getElementById("banner").src= "assets/images/slideshow" + slides[numero];*/
-	console.log(slides[2])
 	if (direction==="previous"){
-		console.log("avant")
+		if (numero <=0 ){
+			numero = slides.length - 1
+		} else {
+			numero = numero - 1
+		}
 	} else {
-		console.log("après")
-	}
+		if (numero >=slides.length - 1){
+			numero = 0
+		} else {
+			numero = numero + 1
+		}
+	} console.log (numero)
+	console.log(slides[numero])
 }
 
-setInterval("changeSlide(1)", 4000)
+//fonction d'affichage de la banniere
+function lookBanner (slide) {
+	var bannerImg=document.querySelector(".banner-img")
+	bannerImg.src=`./assets/images/slideshow/${slide.image}`
+	var bannerTitle=document.querySelector ("#banner p")
+	bannerTitle.innerHTML=slide.tagLine
+}
