@@ -36,7 +36,6 @@ previousButton.addEventListener('click', function(){
 	changeSlide ("previous")
 	lookBanner(slides[numero])
 })
-console.log
 
 //création du bouton droit du slide
 var nextButton=document.createElement("div")
@@ -54,7 +53,8 @@ nextButton.addEventListener('click', function(){
 	changeSlide ("next")
 	lookBanner(slides[numero])
 })
-console.log
+
+
 //création des points bulles
 var dots=document.querySelector(".dots")
 for (var slide of slides){
@@ -63,7 +63,7 @@ for (var slide of slides){
 	dots.append(dot)
 }
 
-//fonction de changement image
+//fonction de changement d'image
 function changeSlide (direction){
 	if (direction==="previous"){
 		if (numero <=0 ){
@@ -77,14 +77,26 @@ function changeSlide (direction){
 		} else {
 			numero = numero + 1
 		}
-	} console.log (numero)
-	console.log(slides[numero])
+	}
+	actualisedDot()
 }
 
-//fonction d'affichage de la banniere
+//fonction d'affichage de la bannière
 function lookBanner (slide) {
 	var bannerImg=document.querySelector(".banner-img")
 	bannerImg.src=`./assets/images/slideshow/${slide.image}`
 	var bannerTitle=document.querySelector ("#banner p")
 	bannerTitle.innerHTML=slide.tagLine
 }
+
+//création du point blanc
+function actualisedDot (){
+	var whiteDot=document.querySelectorAll(".dot")
+	if(whiteDot){
+		for(var dot of whiteDot){
+			dot.classList.remove("dot_selected")
+		}
+		whiteDot[numero].classList.add("dot_selected")
+	}
+}
+actualisedDot ()
